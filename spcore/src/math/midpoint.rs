@@ -26,6 +26,8 @@ pub fn get_midpoint(x1: f64, x2: f64, y1: f64, y2: f64) -> (f64, f64) {
     ((x1 + x2) * ONE_HALF, (y1 + y2) * ONE_HALF)
 }
 
+
+
 //TODO work on static version of get_midpoint
 
 
