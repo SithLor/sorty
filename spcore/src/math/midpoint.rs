@@ -26,9 +26,11 @@ pub fn get_midpoint(x1: f64, x2: f64, y1: f64, y2: f64) -> (f64, f64) {
     ((x1 + x2) * ONE_HALF, (y1 + y2) * ONE_HALF)
 }
 
+pub fn calculate_midpoint_static(x1: f64, x2: f64, y1: f64, y2: f64, return_1: &mut f64, return_2: &mut f64) {
+    *return_1 = (x1 + x2) * ONE_HALF;
+    *return_2 = (y1 + y2) * ONE_HALF;
+}
 
-
-//TODO work on static version of get_midpoint
 
 
 //calculate_midpoint_asm

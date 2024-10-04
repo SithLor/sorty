@@ -4,3 +4,25 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+criterion = "0.5.1"
+
+[[bench]]
+name = "spcore"
+harness = false
+
+[profile.release]
+opt-level = 3
+overflow-checks = true
+strip = "debuginfo"
+lto = true
+codegen-units = 1
+panic = 'abort'
+debug = 0
+incremental = false
+rpath = false
+
+
+
+[profile.release.target]
+tune-cpu = "native"
+target-cpu = "native"

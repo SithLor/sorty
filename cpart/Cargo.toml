@@ -4,3 +4,9 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+criterion = "0.5.1"
+spcore = { path = "../spcore" }
+
+[[bench]]
+name = "spcore"
+harness = false
