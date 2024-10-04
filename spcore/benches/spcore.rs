@@ -71,11 +71,78 @@ mod _midpoint {
     }
     
 }
+mod _distance {
+    use std::ptr::addr_of_mut;
 
+    use criterion::{black_box, criterion_group, criterion_main, Criterion};
+    pub fn benchmark_get_distance(c: &mut Criterion) {
+        c.bench_function("get_distance", |b| {
+            b.iter(|| {
+                let result = spcore::math::distance::get_distance(black_box(1.0), black_box(1.0), black_box(10.0), black_box(10.0));
+                black_box(result);
+            })
+        });
+        //print the result of the how fast the function is
+    }
+    pub fn benchmark_get_distance_2(c: &mut Criterion) {
+        c.bench_function("get_distance_2", |b| {
+            b.iter(|| {
+                let result = spcore::math::distance::get_distance_2(black_box(1.0), black_box(1.0), black_box(10.0), black_box(10.0));
+                black_box(result);
+            })
+        });
+        //print the result of the how fast the function is
+    }
+    pub fn benchmark_get_distance_3(c: &mut Criterion) {
+        c.bench_function("get_distance_3", |b| {
+            b.iter(|| {
+                let result = spcore::math::distance::get_distance_3(black_box(1.0), black_box(1.0), black_box(10.0), black_box(10.0));
+                black_box(result);
+            })
+        });
+        //print the result of the how fast the function is
+    }
+    pub fn benchmark_get_distance_static(c: &mut Criterion) {
+        c.bench_function("get_distance_static", |b| {
+            b.iter(|| {
+                static mut X1: f64 = 0.0;
+                static mut X2: f64 = 0.0;
+                static mut Y1: f64 = 0.0;
+                static mut Y2: f64 = 0.0;
+                static mut DISTANCE: f64 = 0.0;
+                unsafe {
+                    X1 = 1.0;
+                    X2 = 1.0;
+                    Y1 = 10.0;
+                    Y2 = 10.0;
+                }
+                unsafe {
+                    spcore::math::distance::get_distance_static(
+                        black_box(X1),
+                        black_box(X2),
+                        black_box(Y1),
+                        black_box(Y2),
+                        addr_of_mut!(DISTANCE).as_mut().unwrap(),
+                    );
+                }
+
+                unsafe {
+                    let _ = black_box(DISTANCE);
+                }
+            })
+        });
+        //print the result of the how fast the function is
+    }
+}
 
 criterion_group!(benches, _midpoint::benchmark_get_midpoint,
                           _midpoint::bench_core_midpoint_static,
                           _midpoint::bench_core_midpoint_wraper, 
-                          _midpoint::bench_core_midpoint_m
+                          _midpoint::bench_core_midpoint_m,
+                          _distance::benchmark_get_distance,
+                          _distance::benchmark_get_distance_2,
+                          _distance::benchmark_get_distance_3,
+                          _distance::benchmark_get_distance_static,
 );
+//criterion_group!(benches, _distance::benchmark_get_distance_static);
 criterion_main!(benches);

@@ -1,4 +1,5 @@
 pub mod midpoint;
+pub mod distance;
 pub const ONE_HALF: f64 = 0.5;
 pub const ONE_QAURTER: f64 = 0.25;
 pub const THREE_OUT_OF_FOUR: f64 = 0.75;
