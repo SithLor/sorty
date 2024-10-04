@@ -31,7 +31,23 @@ pub fn calculate_midpoint_static(x1: f64, x2: f64, y1: f64, y2: f64, return_1: &
     *return_2 = (y1 + y2) * ONE_HALF;
 }
 
-
+//macro_rules! calculate_midpoint_wraper {
+//    ($x1:expr, $x2:expr, $y1:expr, $y2:expr, $return_1:expr, $return_2:expr) => {
+//        $return_1 = ($x1 + $x2) * ONE_HALF;
+//        $return_2 = ($y1 + $y2) * ONE_HALF;
+//    };
+//}
+macro_rules! calculate_midpoint_wraper {
+    ($x1:expr, $x2:expr, $y1:expr, $y2:expr, $return_1:expr, $return_2:expr) => {
+        static mut X1:f64 = $x1;
+        static mut X2:f64 = $x2;
+        static mut Y1:f64 = $y1;
+        static mut Y2:f64 = $y2;
+        static mut RETURN_1: f64 = 0.0;
+        static mut RETURN_2: f64 = 0.0;
+        
+    };
+}
 
 //calculate_midpoint_asm
 //
