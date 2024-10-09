@@ -133,16 +133,27 @@ mod _distance {
         });
         //print the result of the how fast the function is
     }
+    pub fn benchmark_get_distance_4(c: &mut Criterion) {
+        c.bench_function("get_distance_3", |b| {
+            b.iter(|| {
+                let result = spcore::math::distance::get_distance_4(black_box(1.0), black_box(1.0), black_box(10.0), black_box(10.0));
+                black_box(result);
+            })
+        });
+        //print the result of the how fast the function is
+    }
 }
 
-criterion_group!(benches, _midpoint::benchmark_get_midpoint,
-                          _midpoint::bench_core_midpoint_static,
-                          _midpoint::bench_core_midpoint_wraper, 
-                          _midpoint::bench_core_midpoint_m,
-                          _distance::benchmark_get_distance,
+criterion_group!(benches, //_midpoint::benchmark_get_midpoint,
+                          //_midpoint::bench_core_midpoint_static,
+                          //_midpoint::bench_core_midpoint_wraper, 
+                          //_midpoint::bench_core_midpoint_m,
+                          _distance::benchmark_get_distance
                           _distance::benchmark_get_distance_2,
                           _distance::benchmark_get_distance_3,
                           _distance::benchmark_get_distance_static,
+                          _distance::benchmark_get_distance_4
+)
 );
 //criterion_group!(benches, _distance::benchmark_get_distance_static);
 criterion_main!(benches);
