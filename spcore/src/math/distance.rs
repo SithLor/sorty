@@ -47,7 +47,7 @@ pub fn get_distance_2(x1: f64, x2: f64, y1: f64, y2: f64) -> f64 {
 pub fn get_distance_3(x1:f64,x2:f64,y1:f64,y2:f64) ->f64 {
     return ((x2-x1).powf(2.0)+(y2-y1).powf(2.0)).sqrt();
 }
-
-pub fn get_distance_4(x1: f64, x2: f64, y1: f64, y2: f64) -> f64 {
+#[inline(always)]
+pub fn get_distance_small(x1: f64, x2: f64, y1: f64, y2: f64) -> f64 {
     (x2 - x1).hypot(y2 - y1)
 }
