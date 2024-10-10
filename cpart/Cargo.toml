@@ -6,3 +6,8 @@ edition = "2021"
 [dependencies]
 criterion = "0.5.1"
 spcore = { path = "../spcore" }
+
+
+# cargo rustc --release -- -Z tune-cpu=native -C opt-level=3 -C overflow-checks=true -C strip=debuginfo -C target-cpu=native -C target-feature=+* -C embed-bitcode=no -C force-frame-pointers=false -C force-unwind-tables=true
+
+# -C llvm-args=vectorize-loops
