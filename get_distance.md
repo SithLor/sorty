@@ -1,4 +1,10 @@
 
+to opztie said rust program for cpu 
+run "rustc --print target-cpus"
+read the curret cpu 
+add -Z tune-cpu=znver3 -C target-cpu=znver3
+
+-Z tune-cpu=native -C opt-level=3 -C overflow-checks=true -C strip=symbols -C target-cpu=native -C code-model=small -C codegen-units=0 -C control-flow-guard=false -C debug-assertions=false -C debuginfo=0 -C embed-bitcode=yes -C force-unwind-tables=yes -C link-self-contained=yes -C lto=fat -C relocation-model=pie -C relro-level=full
 
 # build arg
 ```sh
