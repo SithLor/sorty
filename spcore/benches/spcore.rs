@@ -75,38 +75,19 @@ mod _distance {
     use std::ptr::addr_of_mut;
 
     use criterion::{black_box, criterion_group, criterion_main, Criterion};
+
     pub fn benchmark_get_distance(c: &mut Criterion) {
         c.bench_function("get_distance", |b| {
             b.iter(|| {
-                let result = spcore::math::distance::get_distance(black_box(1.0), black_box(1.0), black_box(10.0), black_box(10.0));
+                let result = spcore::math::distance::get_distance_portable(black_box(1.0), black_box(1.0), black_box(10.0), black_box(10.0));
                 black_box(result);
             })
         });
-        //print the result of the how fast the function is
     }
-    pub fn benchmark_get_distance_2(c: &mut Criterion) {
-        c.bench_function("get_distance_2", |b| {
+    pub fn benchmark_get_distance_portable(c: &mut Criterion) {
+        c.bench_function("get_distance_portable", |b| {
             b.iter(|| {
-                let result = spcore::math::distance::get_distance_2(black_box(1.0), black_box(1.0), black_box(10.0), black_box(10.0));
-                black_box(result);
-            })
-        });
-        //print the result of the how fast the function is
-    }
-    pub fn benchmark_get_distance_3(c: &mut Criterion) {
-        c.bench_function("get_distance_3", |b| {
-            b.iter(|| {
-                let result = spcore::math::distance::get_distance_3(black_box(1.0), black_box(1.0), black_box(10.0), black_box(10.0));
-                black_box(result);
-            })
-        });
-        //print the result of the how fast the function is
-    }
-
-    pub fn benchmark_get_distance_4(c: &mut Criterion) {
-        c.bench_function("get_distance_4", |b| {
-            b.iter(|| {
-                let result = spcore::math::distance::get_distance_small(black_box(1.0), black_box(1.0), black_box(10.0), black_box(10.0));
+                let result = spcore::math::distance::get_distance_portable(black_box(1.0), black_box(1.0), black_box(10.0), black_box(10.0));
                 black_box(result);
             })
         });
@@ -114,14 +95,15 @@ mod _distance {
     }
 }
 
-criterion_group!(benches, _midpoint::benchmark_get_midpoint,
-                          _midpoint::bench_core_midpoint_static,
-                          _midpoint::bench_core_midpoint_wraper, 
-                          _midpoint::bench_core_midpoint_m,
-                          _distance::benchmark_get_distance,
-                          _distance::benchmark_get_distance_2,
-                          _distance::benchmark_get_distance_3,
-                          _distance::benchmark_get_distance_4
-);
+//criterion_group!(benches, _midpoint::benchmark_get_midpoint,
+//                          _midpoint::bench_core_midpoint_static,
+//                          _midpoint::bench_core_midpoint_wraper, 
+//                          _midpoint::bench_core_midpoint_m,
+//                          _distance::benchmark_get_distance,
+//                          _distance::benchmark_get_distance_2,
+//                          _distance::benchmark_get_distance_3,
+//                          _distance::benchmark_get_distance_4
+//);
+criterion_group!(benches, _distance::benchmark_get_distance_portable);
 //criterion_group!(benches, _distance::benchmark_get_distance_static);
 criterion_main!(benches);

@@ -12,23 +12,14 @@ harness = false
 
 [profile.release]
 opt-level = 3
-overflow-checks = true
-strip = "symbols"
-lto = "fat"
+debug = false
 codegen-units = 1
-panic = 'abort'
-debug = 0
+lto = true
+panic = 'unwind'
 incremental = false
-rpath = false
-
-[profile.release.package."*"]
-code-model = "small"
-control-flow-guard = false
-debug-assertions = false
-embed-bitcode = true
-force-unwind-tables = true
-link-self-contained = true
-relocation-model = "pie"
-relro-level = "full"
+overflow-checks = true
+strip = "debuginfo"
 target-cpu = "znver3"
-tune-cpu = "znver3"
+target-feature = "+avx2"
+relro-level = "full"
+
