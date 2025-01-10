@@ -1,6 +1,9 @@
 this need nightly to work
 
 
+https://bim.easyaccessmaterials.com/protected/content/dcs_cc3/geo/geo_ref_sheet.pdf
+
+
 cargo test
 cargo bench
 --timings
