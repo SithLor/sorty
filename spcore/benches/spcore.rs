@@ -111,7 +111,7 @@ mod _distance {
 mod volume {
     use criterion::{black_box, criterion_group, criterion_main, Criterion};
     pub fn benchmark_get_volume(c: &mut Criterion) {
-        c.bench_function("get_volume", |b| {
+        c.bench_function("vol_cone_scalar", |b| {
             b.iter(|| {
                 let result =
                     spcore::math::volume::vol_cone_scalar(black_box(10000.0), black_box(10000.0));
@@ -119,11 +119,11 @@ mod volume {
             })
         });
     }
-    pub fn benchmark_get_volume_avx512(c: &mut Criterion) {
-        c.bench_function("get_volume_avx512", |b| {
+    pub fn benchmark_get_volume_avx2(c: &mut Criterion) {
+        c.bench_function("vol_cone_avx2", |b| {
             b.iter(|| {
                 let result = unsafe {
-                    spcore::math::volume::vol_cone_avx512(black_box(10000.0), black_box(10000.0))
+                    spcore::math::volume::vol_cone_avx2(black_box(10000.0), black_box(10000.0))
                 };
                 black_box(result);
             })
@@ -140,6 +140,10 @@ mod volume {
 //                          _distance::benchmark_get_distance_3,
 //                          _distance::benchmark_get_distance_4
 //);
-criterion_group!(benches, volume::benchmark_get_volume, volume::benchmark_get_volume_avx512);
+criterion_group!(
+    benches,
+    volume::benchmark_get_volume,
+    volume::benchmark_get_volume_avx2
+);
 //criterion_group!(benches, _distance::benchmark_get_distance_static);
 criterion_main!(benches);

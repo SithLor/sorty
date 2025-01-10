@@ -1,4 +1,4 @@
-#![feature(stdarch_x86_avx512)]
+
 
 pub mod distance;
 pub mod midpoint;
