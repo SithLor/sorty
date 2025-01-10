@@ -1,17 +1,19 @@
-
-
 use std::ptr::addr_of_mut;
 
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
 
 mod _midpoint {
-    use std::ptr::addr_of_mut;
     use criterion::{black_box, criterion_group, criterion_main, Criterion};
+    use std::ptr::addr_of_mut;
     pub fn benchmark_get_midpoint(c: &mut Criterion) {
         c.bench_function("get_midpoint", |b| {
             b.iter(|| {
-    
-                let result = spcore::math::midpoint::get_midpoint(black_box(1.0), black_box(1.0), black_box(10.0), black_box(10.0));
+                let result = spcore::math::midpoint::get_midpoint(
+                    black_box(1.0),
+                    black_box(1.0),
+                    black_box(10.0),
+                    black_box(10.0),
+                );
                 black_box(result);
             })
         });
@@ -20,14 +22,13 @@ mod _midpoint {
     pub fn bench_core_midpoint_static(c: &mut Criterion) {
         c.bench_function("core_midpoint_static", |b| {
             b.iter(|| {
-    
-                static mut X1:f64 = -98.8;
-                static mut X2:f64 = 90.0;
-                static mut Y1:f64 = 899.0;
-                static mut Y2:f64 = 10.0;
+                static mut X1: f64 = -98.8;
+                static mut X2: f64 = 90.0;
+                static mut Y1: f64 = 899.0;
+                static mut Y2: f64 = 10.0;
                 static mut RETURN_1: f64 = 0.0;
                 static mut RETURN_2: f64 = 0.0;
-    
+
                 unsafe {
                     spcore::math::midpoint::calculate_midpoint_static(
                         black_box(X1),
@@ -45,7 +46,12 @@ mod _midpoint {
     pub fn bench_core_midpoint_wraper(c: &mut Criterion) {
         c.bench_function("core_midpoint_wraper", |b| {
             b.iter(|| {
-                let result = spcore::math::midpoint::calculate_midpoint_wraper(black_box(1.0), black_box(1.0), black_box(10.0), black_box(10.0));
+                let result = spcore::math::midpoint::calculate_midpoint_wraper(
+                    black_box(1.0),
+                    black_box(1.0),
+                    black_box(10.0),
+                    black_box(10.0),
+                );
                 black_box(result);
             })
         });
@@ -56,20 +62,31 @@ mod _midpoint {
             b.iter(|| {
                 let mut return_1: f64;
                 let mut return_2: f64;
-                spcore::calculate_midpoint_m!(black_box(1.0), black_box(1.0), black_box(10.0), black_box(10.0), return_1, return_2);
+                spcore::calculate_midpoint_m!(
+                    black_box(1.0),
+                    black_box(1.0),
+                    black_box(10.0),
+                    black_box(10.0),
+                    return_1,
+                    return_2
+                );
             })
         });
         //print the result of the how fast the function is
     }
-    pub fn bench_core_midpoint_wrapper(c:&mut Criterion){
+    pub fn bench_core_midpoint_wrapper(c: &mut Criterion) {
         c.bench_function("core_midpoint_wrapper", |b| {
             b.iter(|| {
-                let result = spcore::math::midpoint::calculate_midpoint_wrapper(black_box(1.0), black_box(1.0), black_box(10.0), black_box(10.0));
+                let result = spcore::math::midpoint::calculate_midpoint_wrapper(
+                    black_box(1.0),
+                    black_box(1.0),
+                    black_box(10.0),
+                    black_box(10.0),
+                );
                 black_box(result);
             })
         });
     }
-    
 }
 mod _distance {
     use std::ptr::addr_of_mut;
@@ -79,31 +96,50 @@ mod _distance {
     pub fn benchmark_get_distance(c: &mut Criterion) {
         c.bench_function("get_distance", |b| {
             b.iter(|| {
-                let result = spcore::math::distance::get_distance_portable(black_box(1.0), black_box(1.0), black_box(10.0), black_box(10.0));
+                let result = spcore::math::distance::get_distance(
+                    black_box(1.0),
+                    black_box(1.0),
+                    black_box(10.0),
+                    black_box(10.0),
+                );
                 black_box(result);
             })
         });
     }
-    pub fn benchmark_get_distance_portable(c: &mut Criterion) {
-        c.bench_function("get_distance_portable", |b| {
+}
+
+mod volume {
+    use criterion::{black_box, criterion_group, criterion_main, Criterion};
+    pub fn benchmark_get_volume(c: &mut Criterion) {
+        c.bench_function("get_volume", |b| {
             b.iter(|| {
-                let result = spcore::math::distance::get_distance_portable(black_box(1.0), black_box(1.0), black_box(10.0), black_box(10.0));
+                let result =
+                    spcore::math::volume::vol_cone_scalar(black_box(10000.0), black_box(10000.0));
                 black_box(result);
             })
         });
-        //print the result of the how fast the function is
+    }
+    pub fn benchmark_get_volume_avx512(c: &mut Criterion) {
+        c.bench_function("get_volume_avx512", |b| {
+            b.iter(|| {
+                let result = unsafe {
+                    spcore::math::volume::vol_cone_avx512(black_box(10000.0), black_box(10000.0))
+                };
+                black_box(result);
+            })
+        });
     }
 }
 
 //criterion_group!(benches, _midpoint::benchmark_get_midpoint,
 //                          _midpoint::bench_core_midpoint_static,
-//                          _midpoint::bench_core_midpoint_wraper, 
+//                          _midpoint::bench_core_midpoint_wraper,
 //                          _midpoint::bench_core_midpoint_m,
 //                          _distance::benchmark_get_distance,
 //                          _distance::benchmark_get_distance_2,
 //                          _distance::benchmark_get_distance_3,
 //                          _distance::benchmark_get_distance_4
 //);
-criterion_group!(benches, _distance::benchmark_get_distance_portable);
+criterion_group!(benches, volume::benchmark_get_volume, volume::benchmark_get_volume_avx512);
 //criterion_group!(benches, _distance::benchmark_get_distance_static);
 criterion_main!(benches);

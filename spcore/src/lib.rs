@@ -1,26 +1,17 @@
+#![feature(stdarch_x86_avx512)]
 pub mod math;
 
+//pub mod color;
 
-pub mod color;
-
-
-
-
-//small 
+//small
 #[cfg(test)]
 mod tests {
 
-
     use super::*;
-
 
     #[test]
     pub fn core_midpoint() {
         let mid = math::midpoint::get_midpoint(1.0, 1.0, 10.0, 10.0);
         assert!(mid.0 == 1.0 && mid.1 == 10.0);
     }
-
-   
-
 }
-
