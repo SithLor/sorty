@@ -119,12 +119,11 @@ mod volume {
             })
         });
     }
-    pub fn benchmark_get_volume_avx2(c: &mut Criterion) {
-        c.bench_function("vol_cone_avx2", |b| {
+    pub fn benchmark_get_volume_asm_x86(c: &mut Criterion) {
+        c.bench_function("vol_cone_scalar_avx2", |b| {
             b.iter(|| {
-                let result = unsafe {
-                    spcore::math::volume::vol_cone_avx2(black_box(10000.0), black_box(10000.0))
-                };
+                let result =
+                    spcore::math::volume::vol_cone_x86(black_box(10000.0), black_box(10000.0));
                 black_box(result);
             })
         });
@@ -143,7 +142,7 @@ mod volume {
 criterion_group!(
     benches,
     volume::benchmark_get_volume,
-    volume::benchmark_get_volume_avx2
+    volume::benchmark_get_volume_asm_x86
 );
 //criterion_group!(benches, _distance::benchmark_get_distance_static);
 criterion_main!(benches);
