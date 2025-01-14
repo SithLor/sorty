@@ -22,9 +22,5 @@ pub fn vol_cone_scalar(radius: f64, height: f64) -> f64 {
 }
 
 pub fn vol_cone_x86(radius: f64, height: f64) -> f64 {
-    let mut return_1: f64;
-    let mut return_2: f64;
-
     return 0.0;
-    //
 }

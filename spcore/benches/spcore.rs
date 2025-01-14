@@ -130,6 +130,24 @@ mod volume {
     }
 }
 
+
+mod math {
+    use criterion::{black_box, criterion_group, criterion_main, Criterion};
+    pub fn benchmark_point_slope_form(c: &mut Criterion) {
+        c.bench_function("point_slope_form", |b| {
+            b.iter(|| {
+                let result = spcore::math::point_slope_form(
+                    black_box(1.0),
+                    black_box(1.0),
+                    black_box(1.0),
+                    black_box(1.0),
+                    black_box(1.0),
+                );
+                black_box(result);
+            })
+        });
+    }
+}
 //criterion_group!(benches, _midpoint::benchmark_get_midpoint,
 //                          _midpoint::bench_core_midpoint_static,
 //                          _midpoint::bench_core_midpoint_wraper,
@@ -141,8 +159,7 @@ mod volume {
 //);
 criterion_group!(
     benches,
-    volume::benchmark_get_volume,
-    volume::benchmark_get_volume_asm_x86
+    math::benchmark_point_slope_form
 );
 //criterion_group!(benches, _distance::benchmark_get_distance_static);
 criterion_main!(benches);
