@@ -1,5 +1,16 @@
 [target.x86_64-unknown-linux-gnu]
-rustflags = ["-C", "debuginfo=0", "-C", "strip=debuginfo"]
+rustflags = [
+    "-C",
+    "debuginfo=0",
+    "-C",
+    "strip=debuginfo",
+    "-C",
+    "target-cpu=native",
+    "-C",
+    "relro-level=full",
+    "-Z",
+    "tune-cpu=native",
+]
 
 [target.x86_64-unknown-linux-gnu-znver3]
 rustflags = [
