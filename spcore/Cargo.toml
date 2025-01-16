@@ -16,6 +16,17 @@ debug = false
 codegen-units = 1
 lto = true
 panic = 'unwind'
-incremental = false
+incremental = true
 overflow-checks = false
 strip = "debuginfo"
+
+
+[profile.dev-asm]
+inherits = "release"
+opt-level = 3
+debug = true
+overflow-checks = false
+lto = false
+panic = 'unwind'
+incremental = false
+codegen-units = 1

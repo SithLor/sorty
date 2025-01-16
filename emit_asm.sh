@@ -1,0 +1,1 @@
+cargo rustc --bin your_binary -- --emit asm -C llvm-args=--x86-asm-syntax=intel --crate-type bin --color=always -C opt-level=0 -o output.s

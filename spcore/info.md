@@ -1,5 +1,9 @@
 code spawn use znver3 cpus 
 
+llvm-tools, miri
+
+
+https://clang.llvm.org/docs/ClangCommandLineReference.html#x86
 https://uops.info/table.html
 https://www.felixcloutier.com/x86/
 use this as templete

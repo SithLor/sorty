@@ -12,10 +12,9 @@ https://nnethercote.github.io/perf-book/bounds-checks.html
 https://github.com/Shnatsel/bounds-check-cookbook/
 https://www.randomlists.com/random-numbers?dup=false&qty=50000&max=9999&min=1
 
-
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 https://github.dev/rust-lang/libm
 ## rust is werid
-
 how to get rust to opztime for your cpu 
 
 find your cpu target,for example github codespace youse ryzen epic cpu whick zen3 cores
